@@ -1,1 +1,0 @@
-export { TypeCompletedStateDefault } from "./TypeCompletedStateDefault";

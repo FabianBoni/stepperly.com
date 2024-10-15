@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import OpenAI from "openai";
 
-
+const openai = new OpenAI({ apiKey: "sk-svcacct-2Hx9Wbyx9e5o3l-09tTqnpHJZ9Yql5YdXqaPTH4OWDZYz37JGWpAyNyWUVRH3sHE7T3BlbkFJ2kHV2rSuo8lymIJQUOzP2Godnaef3Rccf2pGGEBUbf4Zm6VPbRmM0qAvwtznaO79wA" });
 
 function parseResponse(content: string) {
   const titleMatch = content.match(/Title: (.+)/);

@@ -1,1 +1,0 @@
-export { TypeDefaultStateFocused } from "./TypeDefaultStateFocused";
