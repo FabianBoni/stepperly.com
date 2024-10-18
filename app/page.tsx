@@ -2,8 +2,10 @@
 
 import React, { useState } from 'react';
 import SearchBar from './components/SearchBar';
-import 'tailwindcss/tailwind.css'
 import Header from './components/Header';
+import Footer from './components/Footer';
+import 'tailwindcss/tailwind.css'
+import StepGuide from './components/StepGuide';
 
 const MainComponent: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -28,31 +30,23 @@ const MainComponent: React.FC = () => {
   };
 
   return (
-    <div className="w-[1920px] h-[1080px] relative bg-[#f3f3f3]">
-      <div className="w-[732px] h-[1080px] pt-12 pb-16 left-[595px] top-0 absolute flex-col justify-between items-start inline-flex">
+    <div className="w-full min-h-screen bg-[#f3f3f3] flex justify-center">
+      <div className="w-full max-w-[732px] min-h-screen px-4 md:px-0 pt-12 pb-16 flex flex-col justify-between items-start">
         <Header />
-        <div className="self-stretch h-[325px] pb-20 flex-col justify-start items-start gap-14 flex">
-          <div className="self-stretch h-[245px] pt-8 flex-col justify-start items-start gap-10 flex">
-            <div className="self-stretch h-[68px] flex-col justify-center items-center gap-6 flex">
-              <div className="self-stretch text-center text-[#111111] text-[28px] font-semibold font-inter">Share your goal <br/>and get guides to achieve it!</div>
+        <div className="self-stretch flex-grow flex flex-col justify-center items-center gap-12 md:gap-14">
+          <div className="self-stretch flex-col justify-start items-start gap-10 flex">
+            <div className="self-stretch text-center text-[#111111] text-2xl md:text-[28px] font-semibold font-inter">
+              Share your goal <br />and get guides to achieve it!
             </div>
             <SearchBar onSearch={handleSearch} />
           </div>
-        </div>
-        {result && (
-          <div className="self-stretch flex-grow">
-            {/* Add your StepGuide component here */}
-          </div>
-        )}
-        <div className="w-full pt-10 flex-col justify-start items-start gap-6 flex">
-          <div className="self-stretch justify-between items-center inline-flex">
-            <div className="text-center text-[#585858] text-sm font-normal font-inter">© 2024 Stepperly. All rights reserved.</div>
-            <div className="justify-end items-center gap-6 flex">
-              <div className="text-center text-[#111111] text-sm font-normal font-inter">Terms of Service</div>
-              <div className="text-center text-[#111111] text-sm font-normal font-inter">Privacy Policy</div>
+          {result && (
+            <div className="self-stretch flex-grow">
+              <StepGuide steps={result.steps} title={result.title} conclusion={result.conclusion} />
             </div>
-          </div>
+          )}
         </div>
+        <Footer />
       </div>
     </div>
   );
