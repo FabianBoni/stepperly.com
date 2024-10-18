@@ -11,9 +11,12 @@ function parseResponse(content: string) {
   const title = titleMatch ? titleMatch[1] : '';
   const steps = stepsMatch ? stepsMatch[1].split(/\d+\.\s+\*\*/).slice(1).map(step => {
     const [title, ...substepsArray] = step.split('\n');
-    const substeps = substepsArray.map(s => s.trim()).filter(s => s !== '');
+    const substeps = substepsArray
+      .map(s => s.trim())
+      .filter(s => s.startsWith('-'))
+      .map(s => s.slice(1).trim());
     return { 
-      title: title.replace(/\*\*:/, '').trim(),
+      title: title.replace(/\*\*:?/, '').trim(),
       substeps 
     };
   }) : [];
