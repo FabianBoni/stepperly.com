@@ -1,37 +1,13 @@
 "use client"
 
 import React, { useState } from 'react';
-import Header from './components/Header';
 import SearchBar from './components/SearchBar';
-import FeatureCard from './components/FeatureCard';
-import StepGuide from './components/StepGuide';
-import Footer from './components/Footer';
 import 'tailwindcss/tailwind.css'
+import Header from './components/Header';
 
 const MainComponent: React.FC = () => {
   const [query, setQuery] = useState('');
   const [result, setResult] = useState<{ steps: any[], title: string, conclusion: string } | null>(null);
-
-  const features = [
-    {
-      title: "Loose 20 pounds",
-      description: "Search for any goal or task.",
-      imageUrl: "/graphics/image-2.png",
-      bgColor: "bg-pink-600 bg-opacity-10"
-    },
-    {
-      title: "Get step-by-step guides.",
-      description: "Get step-by-step guides.",
-      imageUrl: "/graphics/image-1.png",
-      bgColor: "bg-blue-600 bg-opacity-10"
-    },
-    {
-      title: "Get step-by-step guides.",
-      description: "Get step-by-step guides.",
-      imageUrl: "/graphics/image-3.png",
-      bgColor: "bg-blue-600 bg-opacity-10"
-    },
-  ];
 
   const handleSearch = async (searchQuery: string) => {
     setQuery(searchQuery);
@@ -52,22 +28,30 @@ const MainComponent: React.FC = () => {
   };
 
   return (
-    <div className="relative max-w-[1920px] mx-auto p-0 box-border">
-      <div className="max-w-[1920px] w-full box-border min-h-[1241px] opacity-100 z-[1] rotate-0 overflow-hidden flex flex-row flex-nowrap justify-start items-center gap-2 px-[594px] py-0 bg-[#f3f3f3]">
-        <div className="w-[732px] min-h-[1241px] opacity-100 z-0 rotate-0 flex flex-col flex-nowrap justify-start items-start gap-12 pb-16">
-          <Header />
-          <SearchBar onSearch={handleSearch} />
-          <div className="w-[732px] min-h-[295px] top-0 left-0 opacity-100 z-[1] rotate-0">
-            <div className="grid grid-cols-2 gap-6 mb-6">
-              <FeatureCard {...features[0]} />
-              <FeatureCard {...features[1]} />
+    <div className="w-[1920px] h-[1080px] relative bg-[#f3f3f3]">
+      <div className="w-[732px] h-[1080px] pt-12 pb-16 left-[595px] top-0 absolute flex-col justify-between items-start inline-flex">
+        <Header />
+        <div className="self-stretch h-[325px] pb-20 flex-col justify-start items-start gap-14 flex">
+          <div className="self-stretch h-[245px] pt-8 flex-col justify-start items-start gap-10 flex">
+            <div className="self-stretch h-[68px] flex-col justify-center items-center gap-6 flex">
+              <div className="self-stretch text-center text-[#111111] text-[28px] font-semibold font-inter">Share your goal <br/>and get guides to achieve it!</div>
             </div>
-            <div className="grid grid-cols-1">
-              <FeatureCard {...features[2]} />
+            <SearchBar onSearch={handleSearch} />
+          </div>
+        </div>
+        {result && (
+          <div className="self-stretch flex-grow">
+            {/* Add your StepGuide component here */}
+          </div>
+        )}
+        <div className="w-full pt-10 flex-col justify-start items-start gap-6 flex">
+          <div className="self-stretch justify-between items-center inline-flex">
+            <div className="text-center text-[#585858] text-sm font-normal font-inter">© 2024 Stepperly. All rights reserved.</div>
+            <div className="justify-end items-center gap-6 flex">
+              <div className="text-center text-[#111111] text-sm font-normal font-inter">Terms of Service</div>
+              <div className="text-center text-[#111111] text-sm font-normal font-inter">Privacy Policy</div>
             </div>
           </div>
-          {result && <StepGuide steps={result.steps} title={result.title} conclusion={result.conclusion} />}
-          <Footer />
         </div>
       </div>
     </div>

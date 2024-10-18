@@ -1,22 +1,22 @@
 import React from 'react';
 
 const Header: React.FC = () => {
-    return (
-        <header className="max-w-[732px] w-full box-border opacity-100 z-0 rotate-0 flex flex-col flex-nowrap justify-start items-start gap-14 pt-20">
-            <div className="max-w-[732px] w-full box-border opacity-100 z-0 rotate-0 flex flex-col flex-nowrap justify-start items-start gap-14 p-0">
-                <div className="max-w-[732px] w-full box-border opacity-100 z-0 rotate-0 flex flex-col flex-nowrap justify-center items-center gap-6 p-0">
-                    <div className="max-w-[129px] w-full box-border min-h-[33px] opacity-100 z-0 rotate-0 flex flex-row flex-nowrap justify-center items-center gap-2 py-2 px-0 rounded-[32px] bg-[#111111]">
-                        <div className="max-w-[97px] w-full box-border min-h-[17px] opacity-100 z-0 rotate-0 text-center">
-                            <span className="text-[14px] leading-[14px] font-inter font-medium text-white">Powered by AI</span>
-                        </div>
-                    </div>
-                    <h1 className="max-w-[732px] w-full box-border min-h-[34px] opacity-100 z-1 rotate-0 text-center">
-                        <span className="text-[28px] leading-[28px] font-inter font-semibold text-[#111111] whitespace-pre-wrap">The Google For Step-by-Step Guides</span>
-                    </h1>
-                </div>
-            </div>
-        </header>
-    );
+  return (
+    <div className="self-stretch h-[50px] flex-col justify-start items-start gap-6 flex font-inter">
+      <div className="self-stretch h-[50px] py-2 justify-between items-center inline-flex">
+        <div className="w-12 h-12 left-[684px] top-[1px] absolute">
+          <div className="left-[-33px] top-[15px] absolute justify-start items-center gap-1 inline-flex">
+            <div className="text-right text-[#585858] text-base font-semibold">Sign in</div>
+            <div className="w-4 h-4 relative origin-top-left rotate-180" />
+          </div>
+        </div>
+        <div className="p-2 left-0 top-[8px] absolute rounded-[40px] justify-center items-center gap-1 inline-flex">
+          <div className="w-3.5 h-3.5 relative" />
+          <div className="text-[#111111] text-base font-medium">Stepperly</div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Header;
