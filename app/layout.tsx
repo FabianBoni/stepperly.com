@@ -1,6 +1,13 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
+import './globals.css'
 import 'tailwindcss/tailwind.css'
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Stepperly",
@@ -9,18 +16,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`antialiased bg-[#f3f3f3] flex justify-center`}
-      >
-        <div className="max-w-[1920px] w-full min-h-screen">
-          {children}
-        </div>
-      </body>
-    </html>
-  );
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`antialiased bg-[#f3f3f3] flex justify-center`}>
+          <div className="max-w-[1920px] w-full min-h-screen">
+            {children}
+          </div>
+        </body>
+      </html>
+    </ClerkProvider>
+  )
 }

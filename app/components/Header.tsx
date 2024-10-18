@@ -1,6 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 import { MdArrowForwardIos } from "react-icons/md";
+import {
+    ClerkProvider,
+    SignInButton,
+    SignedIn,
+    SignedOut,
+    UserButton
+} from '@clerk/nextjs'
 
 const Header: React.FC = () => {
     return (
@@ -11,7 +18,13 @@ const Header: React.FC = () => {
                     <div className="text-[#111111] text-base font-medium">Stepperly</div>
                 </div>
                 <div className="justify-start items-center gap-1 inline-flex">
-                    <div className="text-right text-[#585858] text-base font-semibold">Sign in</div>
+                    <div className="text-right text-[#585858] text-base font-semibold">
+                        <SignedOut>
+                            <SignInButton />
+                        </SignedOut>
+                        <SignedIn>
+                            <UserButton />
+                        </SignedIn></div>
                     <div className="w-4 h-4 text-[#585858]"><MdArrowForwardIos /></div>
                 </div>
             </div>
