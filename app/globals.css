@@ -7,3 +7,11 @@
 body {
   font-family: 'Inter', sans-serif;
 }
+
+.cl-cardBox {
+    box-shadow: none !important;
+}
+
+.cl-socialButtonsBlockButton {
+    border-width: 0.25px !important;
+}
