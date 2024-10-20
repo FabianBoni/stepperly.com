@@ -33,7 +33,7 @@ export default function CustomSignUpPage() {
             </div>
             <div className="self-stretch pb-2 flex-col justify-start items-start gap-4 flex">
               <SignUp
-                forceRedirectUrl="/verification-sent"
+                fallbackRedirectUrl="/verification-sent"
                 appearance={{
                   elements: {
                     rootBox: "w-full",
