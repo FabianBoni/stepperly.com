@@ -4,6 +4,7 @@ import { SignIn } from '@clerk/nextjs';
 import SearchBar from '../../components/SearchBar';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import Link from 'next/link';
 
 export default function CustomSignInPage() {
   return (
@@ -44,7 +45,7 @@ export default function CustomSignInPage() {
                 }}
               />
               <div className="self-stretch h-14 p-4 rounded-[40px] justify-center items-center gap-2 inline-flex">
-                <div className="text-[#111111] text-base font-medium font-inter">Create Account</div>
+                <Link href="/sign-up" className="text-[#111111] text-base font-medium font-inter">Create Account</Link>
               </div>
             </div>
             <div className="self-stretch px-20 justify-center items-center gap-2 inline-flex">

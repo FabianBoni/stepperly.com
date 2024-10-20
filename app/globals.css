@@ -9,9 +9,22 @@ body {
 }
 
 .cl-cardBox {
-    box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .cl-socialButtonsBlockButton {
-    border-width: 0.25px !important;
+  border-color: gray !important;
+  border-width: 0.25px !important;
+}
+
+.cl-formFieldInput {
+  border: solid;
+  border-color: gray !important;
+  border-width: 0.25px !important;
+  box-shadow: none !important;
+}
+
+.cl-formButtonPrimary {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
