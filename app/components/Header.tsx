@@ -22,7 +22,11 @@ const Header: React.FC = () => {
                         </SignedOut>
                         <SignedIn>
                             <div className="h-[35px] px-6 py-2 bg-[#111111] rounded-[40px] justify-center items-center gap-2 inline-flex">
-                                <div className="text-white text-base font-semibold font-Inter">Upgrade to Pro</div>
+                                <form action="/api/create-checkout-session" method="POST">
+                                    <input type="hidden" name="priceId" value="price_1QBxPBHmVldeJPIKnFKkf9p6" />
+                                    <button type="submit" className="text-white text-base font-semibold font-Inter">Upgrade to Pro</button>
+                                </form>
+
                             </div>
                         </SignedIn>
                     </div>
