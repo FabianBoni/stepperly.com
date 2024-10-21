@@ -24,7 +24,7 @@ const Header: React.FC = () => {
                             <div className="h-[35px] px-6 py-2 bg-[#111111] rounded-[40px] justify-center items-center gap-2 inline-flex">
                                 <form action="/api/stripe/create-checkout-session" method="POST">
                                     <input type="hidden" name="priceId" value="price_1QBxPBHmVldeJPIKnFKkf9p6" />
-                                    <button type="submit" className="text-white text-base font-semibold font-Inter">Upgrade to Pro</button>
+                                    <button type="submit" className="text-white text-base  font-Inter">Upgrade to Pro</button>
                                 </form>
 
                             </div>
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
                     </div>
                 </div>
                 <div className="justify-start items-center gap-1 inline-flex">
-                    <div className="text-right text-[#585858] text-base font-semibold">
+                    <div className="text-right text-[#585858] text-base ">
                         <SignedOut>
                             <div className='flex flex-row items-center'>
                                 <SignInButton />

@@ -35,7 +35,7 @@ const MainComponent: React.FC = () => {
         <Header />
         <div className="self-stretch flex-grow flex flex-col justify-center items-center gap-12 md:gap-14">
           <div className="self-stretch flex-col justify-start items-start gap-10 flex">
-            <div className="self-stretch text-center text-[#111111] text-2xl md:text-[28px] font-semibold font-inter">
+            <div className="self-stretch text-center text-[#111111] text-2xl md:text-[28px] font-inter">
               Share your goal <br />and get guides to achieve it!
             </div>
             <SearchBar onSearch={handleSearch} />
