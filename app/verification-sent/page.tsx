@@ -22,8 +22,7 @@ export default function VerificationSentPage() {
                     <Footer />
                 </div>
             </div>
-            <div className='z-[5] top-0 absolute w-full h-full bg-black opacity-[50%]'></div>
-            <div className='z-[5] top-0 absolute w-full h-full bg-black opacity-[50%]'></div>
+            <div className='z-[5] top-0 left-0 absolute w-full h-full bg-black opacity-[50%]'></div>
             <div className="absolute top-0 left-1/2 translate-x-[-50%] z-10 flex justify-center items-center min-h-screen bg-transparent">
                 <div className="w-[554px] h-[547px] px-8 pt-8 pb-12 bg-white rounded-3xl shadow flex-col justify-start items-center gap-12 inline-flex">
                     <div className="self-stretch h-[29px] flex-col justify-start items-start gap-10 flex">
