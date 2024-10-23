@@ -38,7 +38,7 @@ const AccountSettings = () => {
   );
 
   return (
-    <div className="w-full min-h-screen px-4 md:px-[594px] bg-[#f3f3f3] flex justify-center">
+    <div className="w-full min-h-screen px-4 sm:px-[594px] bg-[#f3f3f3] flex justify-center">
       <div className="w-full max-w-[732px] py-12 flex-col justify-start items-start gap-8 md:gap-12">
         <div className="self-stretch flex-col justify-start items-start gap-6 flex">
           <div className="self-stretch py-2 justify-between items-center inline-flex relative">
