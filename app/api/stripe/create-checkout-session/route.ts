@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import connectDB from '../../../lib/mongodb';
-import Subscription from '../../../models/Subscription';
 import { v4 as uuidv4 } from 'uuid';
 
-const stripe = new Stripe(String(process.env.STRIPE_SECRET_KEY));
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 export async function POST(req: Request) {
   await connectDB();
@@ -12,7 +11,6 @@ export async function POST(req: Request) {
   const priceId = formData.get('priceId');
   let userId = formData.get('userId');
 
-  // Generate a new userId if one isn't provided
   if (!userId) {
     userId = uuidv4();
   }
@@ -31,7 +29,11 @@ export async function POST(req: Request) {
       client_reference_id: userId as string,
     });
 
-    return NextResponse.json({ url: session.url, userId: userId });
+    if (session.url) {
+      return NextResponse.redirect(session.url);
+    } else {
+      throw new Error('Session URL is undefined');
+    }
   } catch (error) {
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }

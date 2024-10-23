@@ -35,7 +35,7 @@ const Header: React.FC = () => {
                         <SignedIn>
                             <div className="h-[35px] px-6 py-2 bg-[#111111] rounded-[40px] justify-center items-center gap-2 inline-flex">
                                 <form action="/api/stripe/create-checkout-session" method="POST">
-                                    <input type="hidden" name="priceId" value="price_1QBxPBHmVldeJPIKnFKkf9p6" />
+                                    <input type="hidden" name="priceId" value="price_1QDBkXHmVldeJPIKWaaqdBON" />
                                     <button type="submit" className="text-white text-base font-Inter">
                                         Upgrade to Pro
                                     </button>
