@@ -22,6 +22,7 @@ const MainComponent: React.FC = () => {
         body: JSON.stringify({ query: searchQuery }),
       });
       const data = await response.json();
+
       setResult(data);
     } catch (error) {
       console.error('Error:', error);

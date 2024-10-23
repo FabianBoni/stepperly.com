@@ -5,21 +5,23 @@ const openai = new OpenAI({ apiKey: "sk-svcacct-2Hx9Wbyx9e5o3l-09tTqnpHJZ9Yql5Yd
 
 function parseResponse(content: string) {
   const titleMatch = content.match(/Title: (.+)/);
-  const stepsMatch = content.match(/Steps:\n\n([\s\S]*?)\n\nConclusion:/);
+  const stepsPattern = /\d+\.\s+\*\*([^*]+)\*\*:\s*((?:[-•][^\n]+\n?)+)/g;
   const conclusionMatch = content.match(/Conclusion: (.+)/);
 
   const title = titleMatch ? titleMatch[1] : '';
-  const steps = stepsMatch ? stepsMatch[1].split(/\d+\.\s+\*\*/).slice(1).map(step => {
-    const [title, ...substepsArray] = step.split('\n');
-    const substeps = substepsArray
-      .map(s => s.trim())
-      .filter(s => s.startsWith('-'))
-      .map(s => s.slice(1).trim());
-    return { 
-      title: title.replace(/\*\*:?/, '').trim(),
-      substeps 
-    };
-  }) : [];
+  const steps = [];
+  let match;
+
+  while ((match = stepsPattern.exec(content)) !== null) {
+    const title = match[1].trim();
+    const substeps = match[2]
+      .split('\n')
+      .filter(step => step.trim().startsWith('-'))
+      .map(step => step.trim().replace(/^-\s*/, ''));
+    
+    steps.push({ title, substeps });
+  }
+
   const conclusion = conclusionMatch ? conclusionMatch[1] : '';
 
   return { title, steps, conclusion };
