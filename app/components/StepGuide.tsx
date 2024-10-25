@@ -12,8 +12,7 @@ interface StepGuideProps {
     conclusion: string;
 }
 
-const StepGuide: React.FC<StepGuideProps> = ({ steps, title, conclusion }) => {
-    return (
+const StepGuide: React.FC<StepGuideProps> = ({ steps }) => {    return (
         <div className="w-full flex-col justify-start items-start gap-6 inline-flex">
             {steps.map((step, index) => (
                 <div key={index} className="w-full px-8 py-10 bg-white rounded-3xl border border-[#dddddd] flex-col justify-start items-start gap-2 inline-flex relative">

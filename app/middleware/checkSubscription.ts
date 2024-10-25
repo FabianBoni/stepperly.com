@@ -1,5 +1,5 @@
 import { getAuth } from "@clerk/nextjs/server";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import connectDB from "../lib/mongodb";
 import Subscription from "../models/Subscription";
 

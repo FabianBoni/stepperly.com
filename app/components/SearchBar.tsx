@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 interface SearchBarProps {
     onSearch: (query: string) => void;
@@ -17,7 +18,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             <div className="max-w-[732px] w-full box-border min-h-[64px] opacity-100 z-0 rotate-0 flex flex-row flex-nowrap justify-start items-center p-2 rounded-[120px] bg-white shadow-[0px_12px_28px_0px_rgba(0,0,0,0.1),0px_4px_6px_0px_rgba(0,0,0,0.08)]">
                 <div className="w-12 h-12 opacity-100 z-0 rotate-0 rounded-[72px] bg-center bg-contain bg-no-repeat"></div>
                 <div className="flex flex-wrap items-center w-full text-xl max-md:max-w-full">
-                    <img
+                    <Image
                         src="/graphics/search-1.png"
                         alt="Search Icon"
                         className="w-6 h-6 mr-2"

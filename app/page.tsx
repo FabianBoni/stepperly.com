@@ -9,13 +9,10 @@ import StepGuide from './components/StepGuide';
 import UpgradePrompt from './components/UpgradePrompt';
 
 const MainComponent: React.FC = () => {
-  const [query, setQuery] = useState('');
-  const [result, setResult] = useState<{ steps: any[], title: string, conclusion: string } | null>(null);
+  const [result, setResult] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const { user } = useUser();
 
   const handleSearch = async (searchQuery: string) => {
-    setQuery(searchQuery);
     setError(null);
 
     try {

@@ -28,7 +28,7 @@ export default function VerificationSentPage() {
                     <div className="self-stretch h-[29px] flex-col justify-start items-start gap-10 flex">
                         <div className="self-stretch h-[29px] py-0.5 justify-between items-start inline-flex">
                             <div className="grow shrink basis-0 flex-col justify-start items-start gap-4 inline-flex">
-                                <div className="text-[#111111] text-2xl font-semibold font-Inter">We've sent a verification email!</div>
+                                <div className="text-[#111111] text-2xl font-semibold font-Inter">We&apos;ve sent a verification email!</div>
                                 <div className="self-stretch text-[#585858] text-base font-medium font-Inter leading-snug">Click the link in the email to start use your Stepperly account.</div>
                             </div>
                         </div>

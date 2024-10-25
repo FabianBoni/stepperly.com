@@ -78,8 +78,8 @@ const Header: React.FC = () => {
                                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                                     className="flex items-center"
                                 >
-                                    <img
-                                        src={user?.imageUrl}
+                                    <Image
+                                        src={user?.imageUrl || '/default-profile-image.png'}
                                         alt="Profile"
                                         className="w-8 h-8 rounded-full"
                                     />
@@ -117,5 +117,4 @@ const Header: React.FC = () => {
         </div>
     );
 };
-
 export default Header;

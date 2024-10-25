@@ -50,7 +50,7 @@ export default function CustomSignUpPage() {
             </div>
             <div className="self-stretch px-20 justify-center items-center gap-2 inline-flex">
               <div className="grow shrink basis-0 text-center">
-                <span className="text-[#585858] text-xs font-normal font-inter">By continuing you agree to Stepperly's </span>
+                <span className="text-[#585858] text-xs font-normal font-inter">By continuing you agree to Stepperly&apos;s </span>
                 <span className="text-[#e0154e] text-xs font-normal font-inter">Terms of Service</span>
                 <span className="text-[#585858] text-xs font-normal font-inter"> and </span>
                 <span className="text-[#e0154e] text-xs font-normal font-inter">Privacy Policy</span>
