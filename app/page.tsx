@@ -62,7 +62,7 @@ const MainComponent: React.FC = () => {
             )}
           </div>
           {result && (
-            <div className="self-stretch flex-grow">
+            <div className="self-stretch flex-grow mb-[32px]">
               <StepGuide steps={result.steps} title={result.title} conclusion={result.conclusion} />
             </div>
           )}

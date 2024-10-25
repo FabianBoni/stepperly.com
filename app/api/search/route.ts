@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from "openai";
+import { headers } from 'next/headers';
 import { getAuth } from "@clerk/nextjs/server";
 import connectDB from '../../lib/mongodb';
 import Subscription from '../../models/Subscription';
+import AnonymousSearch from '../../models/AnonymousSearch';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -31,35 +33,31 @@ function parseResponse(content: string) {
 }
 
 export async function POST(request: NextRequest) {
+  const headersList = headers();
+  const ip = headersList.get('x-forwarded-for') || 'unknown';
   const { userId } = getAuth(request);
   const { query } = await request.json();
 
-  if (!userId) {
-    return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
-  }
-
   await connectDB();
-  
-  // Check subscription status
-  const subscription = await Subscription.findOne({
-    userId,
-    status: 'active'
-  });
 
-  // Get search count from MongoDB
-  const searchCount = await Subscription.countDocuments({
-    userId,
-    searchCount: { $exists: true }
-  });
+  // Handle logged-in users
+  if (userId) {
+    const subscription = await Subscription.findOne({
+      userId,
+      status: 'active'
+    });
 
-  if (!subscription && searchCount >= 1) {
-    return NextResponse.json({ 
-      error: 'Free plan limited to 1 search. Please upgrade to Premium for unlimited searches.' 
-    }, { status: 403 });
-  }
+    const searchCount = await Subscription.countDocuments({
+      userId,
+      searchCount: { $exists: true }
+    });
 
-  try {
-    // Increment search count for non-premium users
+    if (!subscription && searchCount >= 1) {
+      return NextResponse.json({ 
+        error: 'Free plan limited to 1 search. Please upgrade to Premium for unlimited searches.' 
+      }, { status: 403 });
+    }
+
     if (!subscription) {
       await Subscription.updateOne(
         { userId },
@@ -67,7 +65,29 @@ export async function POST(request: NextRequest) {
         { upsert: true }
       );
     }
+  } 
+  // Handle non-logged-in users
+  else {
+    const anonymousSearch = await AnonymousSearch.findOne({ 
+      ip,
+      createdAt: { 
+        $gte: new Date(Date.now() - 24 * 60 * 60 * 1000) 
+      }
+    });
 
+    if (anonymousSearch && anonymousSearch.searchCount >= 1) {
+      return NextResponse.json({ 
+        error: "You've reached your free search limit. Sign up for more searches!" 
+      }, { status: 403 });
+    }
+
+    await AnonymousSearch.create({
+      ip,
+      searchCount: 1
+    });
+  }
+
+  try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [

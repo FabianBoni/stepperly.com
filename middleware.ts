@@ -2,7 +2,7 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const isPublicRoute = createRouteMatcher(['/', '/verification-sent(.*)', '/sign-in(.*)', '/sign-up(.*)'])
+const isPublicRoute = createRouteMatcher(['/', '/verification-sent(.*)', '/sign-in(.*)', '/sign-up(.*)', '/api/search'])
 
 function handleEmailVerification(request: NextRequest) {
   if (request.nextUrl.pathname === '/sign-up/verify-email-address') {
