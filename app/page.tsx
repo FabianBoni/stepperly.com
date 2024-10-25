@@ -1,18 +1,23 @@
 "use client"
 
-import React, { useState } from 'react';
-import SearchBar from './components/SearchBar';
+import { useState } from 'react';
+import { useUser } from '@clerk/nextjs';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import 'tailwindcss/tailwind.css'
+import SearchBar from './components/SearchBar';
 import StepGuide from './components/StepGuide';
+import UpgradePrompt from './components/UpgradePrompt';
 
 const MainComponent: React.FC = () => {
   const [query, setQuery] = useState('');
   const [result, setResult] = useState<{ steps: any[], title: string, conclusion: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const { user } = useUser();
 
   const handleSearch = async (searchQuery: string) => {
     setQuery(searchQuery);
+    setError(null);
+
     try {
       const response = await fetch('/api/search', {
         method: 'POST',
@@ -21,7 +26,17 @@ const MainComponent: React.FC = () => {
         },
         body: JSON.stringify({ query: searchQuery }),
       });
+      
       const data = await response.json();
+
+      if (response.status === 403) {
+        setError(data.error);
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || 'An error occurred');
+      }
 
       setResult(data);
     } catch (error) {
@@ -40,6 +55,11 @@ const MainComponent: React.FC = () => {
               Share your goal <br />and get guides to achieve it!
             </div>
             <SearchBar onSearch={handleSearch} />
+            {error && (
+              <div className="w-full">
+                <UpgradePrompt message={error} />
+              </div>
+            )}
           </div>
           {result && (
             <div className="self-stretch flex-grow">

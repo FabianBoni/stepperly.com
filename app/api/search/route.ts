@@ -1,7 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from "openai";
+import { getAuth } from "@clerk/nextjs/server";
+import connectDB from '../../lib/mongodb';
+import Subscription from '../../models/Subscription';
 
-const openai = new OpenAI({ apiKey: "sk-svcacct-2Hx9Wbyx9e5o3l-09tTqnpHJZ9Yql5YdXqaPTH4OWDZYz37JGWpAyNyWUVRH3sHE7T3BlbkFJ2kHV2rSuo8lymIJQUOzP2Godnaef3Rccf2pGGEBUbf4Zm6VPbRmM0qAvwtznaO79wA" });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 function parseResponse(content: string) {
   const titleMatch = content.match(/Title: (.+)/);
@@ -27,10 +30,44 @@ function parseResponse(content: string) {
   return { title, steps, conclusion };
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const { userId } = getAuth(request);
   const { query } = await request.json();
 
+  if (!userId) {
+    return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
+  }
+
+  await connectDB();
+  
+  // Check subscription status
+  const subscription = await Subscription.findOne({
+    userId,
+    status: 'active'
+  });
+
+  // Get search count from MongoDB
+  const searchCount = await Subscription.countDocuments({
+    userId,
+    searchCount: { $exists: true }
+  });
+
+  if (!subscription && searchCount >= 1) {
+    return NextResponse.json({ 
+      error: 'Free plan limited to 1 search. Please upgrade to Premium for unlimited searches.' 
+    }, { status: 403 });
+  }
+
   try {
+    // Increment search count for non-premium users
+    if (!subscription) {
+      await Subscription.updateOne(
+        { userId },
+        { $inc: { searchCount: 1 } },
+        { upsert: true }
+      );
+    }
+
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
@@ -40,7 +77,6 @@ export async function POST(request: Request) {
     });
 
     const result = response.choices[0].message?.content;
-    console.log(result)
     const parsedResult = parseResponse(result || '');
     return NextResponse.json(parsedResult);
   } catch (error) {

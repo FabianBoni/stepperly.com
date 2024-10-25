@@ -11,6 +11,24 @@ import {
 import { useClickOutside } from '../hooks/useClickOutside';
 import Link from 'next/link';
 
+const handleCheckout = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    
+    const response = await fetch('/api/stripe/create-checkout-session', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        },
+        mode: 'same-origin'
+    });
+
+    if (response.ok) {
+        window.location.href = response.url;
+    }
+};
+
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user } = useUser();
@@ -34,7 +52,7 @@ const Header: React.FC = () => {
                         </SignedOut>
                         <SignedIn>
                             <div className="h-[35px] px-6 py-2 bg-[#111111] rounded-[40px] justify-center items-center gap-2 inline-flex">
-                                <form action="/api/stripe/create-checkout-session" method="POST">
+                                <form onSubmit={handleCheckout}>
                                     <input type="hidden" name="priceId" value="price_1QDBkXHmVldeJPIKWaaqdBON" />
                                     <button type="submit" className="text-white text-base font-Inter">
                                         Upgrade to Pro
